@@ -82,17 +82,18 @@
   .tel{font-size:1.1rem;font-weight:900;color:var(--text-dark);letter-spacing:0.03em;}
 </style>
     <link rel="stylesheet" href="../assets/style-sub.css">
+  <link rel="stylesheet" href="../assets/i18n.css">
   <link rel="stylesheet" href="../assets/cute-pack.css">
   <style id="cute-pack-theme">:root{--cp-chip-a:#fff3e8;--cp-chip-b:#fdeef4;--cp-hover-shadow:rgba(220,140,90,.18);--cp-dot-1:rgba(240,170,120,.10);}</style>
 </head>
 <body>
 <div class="lang-bar">
-  <button class="lang-btn active" onclick="setLang('en',this)">🇬🇧 EN</button>
-  <button class="lang-btn" onclick="setLang('ja',this)">🇯🇵 JA</button>
-  <button class="lang-btn" onclick="setLang('zh',this)">🇨🇳 ZH</button>
-  <button class="lang-btn" onclick="setLang('ko',this)">🇰🇷 KO</button>
-  <button class="lang-btn" onclick="setLang('fr',this)">🇫🇷 FR</button>
-  <button class="lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="ja">JA</button>
+  <button class="lang-btn" data-lang="zh">ZH</button>
+  <button class="lang-btn" data-lang="ko">KO</button>
+  <button class="lang-btn" data-lang="fr">FR</button>
+  <button class="lang-btn" data-lang="es">ES</button>
 </div>
 <div class="top-bar">
   <a href="../" class="back-btn">←</a>
@@ -110,10 +111,9 @@
 
 <script>
 const S={"en":{"pageTitle":"Laundry","laundryTip":"Detergent, fabric softener, and laundry nets are stored near the washing machine — feel free to use them!","laundryHow":"How to use the washing machine","step1":"① Press ON/OFF to turn on","step2":"② Select mode: Wash-Dry / Wash only / Dry only","step3":"③ Select course: Regular or Quick","step4":"④ Put detergent in the RIGHT slot, softener in the LEFT slot","step5":"⑤ Press START/STOP to begin","backToMenu":"← Back to Menu"},"ja":{"pageTitle":"洗濯","laundryTip":"洗剤・柔軟剤・洗濯ネットは洗濯機の近くに置いてあります。自由にお使いください！","laundryHow":"洗濯機の使い方","step1":"① ON/OFFボタンを押して電源を入れる","step2":"② モードを選択: 洗い→乾燥 / 洗いのみ / 乾燥のみ","step3":"③ コースを選択: 通常 または 時短","step4":"④ 洗剤は右側、柔軟剤は左側の投入口に入れる","step5":"⑤ START/STOPボタンを押してスタート","backToMenu":"← メニューへ戻る"},"zh":{"pageTitle":"洗衣","laundryTip":"洗涤剂、柔顺剂和洗衣网放在洗衣机旁，请随意使用！","laundryHow":"洗衣机使用方法","step1":"① 按ON/OFF开机","step2":"② 选择模式：洗涤+烘干 / 仅洗涤 / 仅烘干","step3":"③ 选择程序：普通 或 快洗","step4":"④ 洗涤剂放右槽，柔顺剂放左槽","step5":"⑤ 按START/STOP开始","backToMenu":"← 返回菜单"},"ko":{"pageTitle":"세탁","laundryTip":"세제, 섬유유연제, 세탁망은 세탁기 근처에 있습니다. 자유롭게 사용하세요！","laundryHow":"세탁기 사용 방법","step1":"① ON/OFF 버튼으로 전원 켜기","step2":"② 모드 선택: 세탁+건조 / 세탁만 / 건조만","step3":"③ 코스 선택: 일반 또는 빠른 세탁","step4":"④ 세제는 오른쪽, 유연제는 왼쪽 투입구에 넣기","step5":"⑤ START/STOP 버튼으로 시작","backToMenu":"← 메뉴로 돌아가기"},"fr":{"pageTitle":"Laverie","laundryTip":"La lessive, l'adoucissant et les filets sont pres du lave-linge — utilisez-les librement！","laundryHow":"Utilisation du lave-linge","step1":"① Appuyer sur ON/OFF pour allumer","step2":"② Choisir le mode: Lavage+Sechage / Lavage seul / Sechage seul","step3":"③ Choisir le programme: Normal ou Rapide","step4":"④ Lessive dans le compartiment DROIT, adoucissant dans le GAUCHE","step5":"⑤ Appuyer sur START/STOP pour demarrer","backToMenu":"← Retour au menu"},"es":{"pageTitle":"Lavanderia","laundryTip":"El detergente, suavizante y bolsas de lavado estan junto a la lavadora. Uselos libremente！","laundryHow":"Como usar la lavadora","step1":"① Presionar ON/OFF para encender","step2":"② Seleccionar modo: Lavado+Secado / Solo lavado / Solo secado","step3":"③ Seleccionar ciclo: Normal o Rapido","step4":"④ Detergente en ranura DERECHA, suavizante en IZQUIERDA","step5":"⑤ Presionar START/STOP para iniciar","backToMenu":"← Volver al menu"}};
+<script src="../assets/i18n.js"></script>
 <script>
-function setLang(l,btn){document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const t=S[l];if(!t)return;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(k in t)el.textContent=t[k];});}
-setLang('en',document.querySelector('.lang-btn.active'));
-</script>
+  I18N.init({ strings: S });
 </script>
   <script src="../assets/cute-pack.js" defer></script>
 </body>
