@@ -103,46 +103,7 @@
 
         main { position: relative; max-width: 560px; margin: 0 auto; z-index: 1; }
 
-        /* ─── Language switcher ─── */
-        .lang-switcher {
-            position: fixed;
-            top: calc(10px + env(safe-area-inset-top));
-            right: 10px;
-            z-index: 100;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            max-width: 200px;
-        }
-        .lang-btn {
-            border: 1.5px solid rgba(240,130,74,0.35);
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 999px;
-            padding: 5px 10px;
-            font-family: inherit;
-            font-size: 0.72rem;
-            font-weight: 800;
-            color: var(--text-mid);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-xs);
-            letter-spacing: 0.02em;
-        }
-        .lang-btn.active {
-            background: var(--orange);
-            border-color: var(--orange);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(240,130,74,0.35);
-        }
-        .lang-btn:hover:not(.active),
-        .lang-btn:focus-visible:not(.active) {
-            border-color: var(--orange);
-            color: var(--orange);
-            outline: none;
-        }
+        /* Language switcher styles moved to assets/i18n.css */
 
         /* ─── Hero ─── */
         .hero {
@@ -768,19 +729,20 @@
             .btn-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
-  <link rel="stylesheet" href="assets/cute-pack.css">
+   <link rel="stylesheet" href="assets/cute-pack.css">
+   <link rel="stylesheet" href="assets/i18n.css">
   <style id="cute-pack-theme">:root{--cp-chip-a:#fff3e8;--cp-chip-b:#fdeef4;--cp-hover-shadow:rgba(220,140,90,.18);--cp-dot-1:rgba(240,170,120,.10);}</style>
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <nav class="lang-switcher" aria-label="Language">
-        <button class="lang-btn active" onclick="setLang('en', this)" aria-label="English">EN</button>
-        <button class="lang-btn" onclick="setLang('ja', this)" aria-label="日本語">JA</button>
-        <button class="lang-btn" onclick="setLang('zh', this)" aria-label="中文">ZH</button>
-        <button class="lang-btn" onclick="setLang('ko', this)" aria-label="한국어">KO</button>
-        <button class="lang-btn" onclick="setLang('fr', this)" aria-label="Français">FR</button>
-        <button class="lang-btn" onclick="setLang('es', this)" aria-label="Español">ES</button>
+        <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+        <button class="lang-btn" data-lang="ja" aria-label="日本語">JA</button>
+        <button class="lang-btn" data-lang="zh" aria-label="中文">ZH</button>
+        <button class="lang-btn" data-lang="ko" aria-label="한국어">KO</button>
+        <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
+        <button class="lang-btn" data-lang="es" aria-label="Español">ES</button>
     </nav>
 
     <main id="main">
@@ -1101,32 +1063,7 @@
             },
         };
 
-        function applyTranslations(lang) {
-            const t = UI_STRINGS[lang];
-            if (!t) return;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (key in t) el.textContent = t[key];
-            });
-            document.querySelectorAll('.chip').forEach(c => {
-                const key = c.getAttribute('data-chip');
-                if (key && key in t) c.textContent = t[key];
-            });
-        }
-
-        function setLang(lang, btn) {
-            currentLang = lang;
-            const d = LANG_DATA[lang];
-            document.getElementById('statusText').textContent  = d.status;
-            document.getElementById('chatInput').placeholder   = d.placeholder;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            history = [];
-            document.getElementById('chatMsgs').innerHTML = `<div class="msg bot">${d.welcome}</div>`;
-            applyTranslations(lang);
-            document.documentElement.lang = lang;
-            try { localStorage.setItem('felizStayLang', lang); } catch (e) {}
-        }
+        // Translations applied via assets/i18n.js
 
         async function sendMessage(overrideText) {
             const input = document.getElementById('chatInput');
@@ -1256,16 +1193,32 @@
             if (e.key === 'Enter' && !e.isComposing) sendMessage();
         });
 
-        const savedLang = (() => { try { return localStorage.getItem('felizStayLang'); } catch (e) { return null; } })();
-        const initialLang = savedLang && UI_STRINGS[savedLang] ? savedLang : 'en';
-        const initialBtn = Array.from(document.querySelectorAll(".lang-btn")).find(btn => btn.getAttribute("onclick") === "setLang('" + initialLang + "', this)");
-        if (initialBtn) {
-            setLang(initialLang, initialBtn);
-        } else {
-            applyTranslations(initialLang);
-            document.documentElement.lang = initialLang;
-        }
+        // Initialize shared i18n and keep chat UI in sync
+        window.addEventListener('DOMContentLoaded', () => {
+            I18N.init({
+                strings: UI_STRINGS,
+                onChange: (lang) => {
+                    currentLang = lang;
+                    const d = LANG_DATA[lang] || LANG_DATA.en;
+                    // Update chat header/placeholder and reset conversation greeting
+                    const statusEl = document.getElementById('statusText');
+                    if (statusEl) statusEl.textContent = d.status;
+                    const inputEl = document.getElementById('chatInput');
+                    if (inputEl) inputEl.placeholder = d.placeholder;
+                    history = [];
+                    const msgs = document.getElementById('chatMsgs');
+                    if (msgs) msgs.innerHTML = `<div class="msg bot">${d.welcome}</div>`;
+                    // Update quick chips using UI_STRINGS keys
+                    document.querySelectorAll('.chip').forEach(c => {
+                        const key = c.getAttribute('data-chip');
+                        const t = (UI_STRINGS[lang] || {});
+                        if (key && key in t) c.textContent = t[key];
+                    });
+                }
+            });
+        });
     </script>
+    <script src="assets/i18n.js" defer></script>
   <script src="assets/cute-pack.js" defer></script>
 </body>
 </html>

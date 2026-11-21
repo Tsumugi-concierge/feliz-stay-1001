@@ -1,0 +1,51 @@
+/* Shared language switcher styles for all pages */
+:root {
+  --i18n-accent: #d4651e;
+  --i18n-accent-light: #fcd3ae;
+  --i18n-text-mid: #6b5a5a;
+  --i18n-white: #ffffff;
+}
+
+/* Home page switcher (nav.lang-switcher) */
+.lang-switcher,
+.lang-bar {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: 10px;
+  z-index: 100;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 240px;
+}
+
+/* On sub pages we often place switcher under the top bar; allow static layout too */
+body .lang-bar { position: static; right: auto; top: auto; justify-content: center; }
+
+.lang-btn {
+  border: 2px solid var(--i18n-accent-light);
+  background: rgba(255,255,255,0.92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font: 800 0.72rem -apple-system, BlinkMacSystemFont, 'Nunito', system-ui, sans-serif;
+  color: var(--i18n-text-mid);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(120,80,60,0.12);
+  letter-spacing: 0.02em;
+}
+.lang-btn.active {
+  background: var(--i18n-accent);
+  border-color: var(--i18n-accent);
+  color: var(--i18n-white);
+  box-shadow: 0 4px 12px rgba(212,101,30,0.25);
+}
+.lang-btn:hover:not(.active),
+.lang-btn:focus-visible:not(.active) {
+  border-color: var(--i18n-accent);
+  color: var(--i18n-accent);
+  outline: none;
+}
