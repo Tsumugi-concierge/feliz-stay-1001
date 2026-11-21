@@ -29,5 +29,7 @@ Content Safeguards
 - No key numbers, lock codes, keybox codes, or access codes are present in any page. If such content is required in future, it should be sent privately; the current pages contain no codes.
 
 Flags / Notes
-- equipment/index.html and parking/index.html were empty; placeholder content was added and internationalized. Replace the placeholder texts when final content is ready.
+- equipment/index.html and parking/index.html placeholders have been replaced with formal content sourced from main branch pages (pre-6-language inline implementation) while keeping the shared i18n mechanism (assets/i18n.js) and the repo’s 6-language switcher.
+- Source: main:equipment/index.html and main:parking/index.html (texts for sofa bed, A/C, TV, hot water, stove, microwave, washlet; and parking policy). No additional items were added beyond what exists on main.
+- No key numbers or access codes were present on the referenced main pages; none were added. If any are discovered later, they should not be included on pages and should be recorded here only.
 - Some pages retain their original non-i18n styles; language switcher styles are now governed by assets/i18n.css for consistency.

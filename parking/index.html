@@ -38,17 +38,50 @@
     <div class="top-title" data-i18n="pageTitle">Parking</div>
   </div>
   <main class="content">
-    <div class="info-card" data-i18n="body">Parking information and recommended nearby parking lots will be available here soon.</div>
+    <div class="info-card">
+      <h3 data-i18n="infoTitle">Parking Information</h3>
+      <p data-i18n="infoBody">Parking is not included with your stay. Please use paid parking lots in the area. Check Google Maps for nearby options.</p>
+    </div>
     <div class="back-footer"><a href="../" data-i18n="backToMenu">← Back to Menu</a></div>
   </main>
   <script>
     const S = {
-      en: { pageTitle: 'Parking', body: 'Parking information and recommended nearby parking lots will be available here soon.', backToMenu: '← Back to Menu' },
-      ja: { pageTitle: '駐車場情報', body: '駐車場のご案内や近隣のおすすめ駐車場は、近日中にこちらに掲載します。', backToMenu: '← メニューへ戻る' },
-      zh: { pageTitle: '停车信息', body: '停车信息和附近推荐停车场将很快在此提供。', backToMenu: '← 返回菜单' },
-      ko: { pageTitle: '주차 안내', body: '주차 정보와 인근 추천 주차장은 곧 이곳에 제공될 예정입니다.', backToMenu: '← 메뉴로 돌아가기' },
-      fr: { pageTitle: 'Stationnement', body: 'Les informations de stationnement et les parkings recommandés à proximité seront bientôt disponibles ici.', backToMenu: '← Retour au menu' },
-      es: { pageTitle: 'Aparcamiento', body: 'La información de aparcamiento y los aparcamientos cercanos recomendados estarán disponibles aquí pronto.', backToMenu: '← Volver al menú' },
+      en: {
+        pageTitle: 'Parking',
+        infoTitle: 'Parking Information',
+        infoBody: 'Parking is not included with your stay. Please use paid parking lots in the area. Check Google Maps for nearby options.',
+        backToMenu: '← Back to Menu',
+      },
+      ja: {
+        pageTitle: '駐車場',
+        infoTitle: '駐車場について',
+        infoBody: '駐車場は宿泊に含まれておりません。近隣のコインパーキングをご利用ください。Googleマップで近くの駐車場を検索できます。',
+        backToMenu: '← メニューへ戻る',
+      },
+      zh: {
+        pageTitle: '停车场',
+        infoTitle: '停车信息',
+        infoBody: '住宿不含停车位。请使用附近的收费停车场。可通过Google地图查找附近的停车场。',
+        backToMenu: '← 返回菜单',
+      },
+      ko: {
+        pageTitle: '주차장',
+        infoTitle: '주차 안내',
+        infoBody: '숙박에 주차 공간은 포함되어 있지 않습니다. 근처 유료 주차장을 이용해 주세요. Google 지도에서 근처 주차장을 검색하세요.',
+        backToMenu: '← 메뉴로 돌아가기',
+      },
+      fr: {
+        pageTitle: 'Parking',
+        infoTitle: 'Informations parking',
+        infoBody: "Le parking n'est pas inclus dans le sejour. Veuillez utiliser les parkings payants du quartier. Consultez Google Maps pour les options proches.",
+        backToMenu: '← Retour au menu',
+      },
+      es: {
+        pageTitle: 'Estacionamiento',
+        infoTitle: 'Informacion de estacionamiento',
+        infoBody: 'El estacionamiento no esta incluido en la estadia. Use los estacionamientos de pago del area. Consulte Google Maps para opciones cercanas.',
+        backToMenu: '← Volver al menu',
+      },
     };
   </script>
   <script src="../assets/i18n.js"></script>
